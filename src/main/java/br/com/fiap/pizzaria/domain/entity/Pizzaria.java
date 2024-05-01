@@ -28,7 +28,7 @@ public class Pizzaria {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
-            name = "PIZZARIA",
+            name = "TB_CARDAPIO",
             joinColumns = {
                     @JoinColumn(
                         name = "PIZZARIA",
