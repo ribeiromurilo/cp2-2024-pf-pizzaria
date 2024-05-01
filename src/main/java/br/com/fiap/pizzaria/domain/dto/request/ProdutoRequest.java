@@ -3,7 +3,7 @@ package br.com.fiap.pizzaria.domain.dto.request;
 import java.math.BigDecimal;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-
+import java.util.List;
 
 public record ProdutoRequest(
         @NotNull(message = "O nome é obrigatório")
@@ -14,10 +14,9 @@ public record ProdutoRequest(
 
         @Valid
         @NotNull(message = "O sabor é obrigatório")
-        AbstractRequest sabor,
+        SaborRequest sabor,
 
         @Valid
-        AbstractRequest opcional
-
+        List<OpcionalRequest> opcionais
 ) {
 }
