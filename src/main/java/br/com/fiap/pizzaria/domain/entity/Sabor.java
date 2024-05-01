@@ -20,7 +20,7 @@ public class Sabor {
     @Column(name = "ID_SABOR")
     private Long id;
 
-    @Column(name = "NM_SABOR, unique = true")
+    @Column(name = "NM_SABOR", unique = true)
     private String nome;
 
     @Column(name = "DESC_SABOR")

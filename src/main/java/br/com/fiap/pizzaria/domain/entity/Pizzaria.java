@@ -13,7 +13,6 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Table(name = "TB_PIZZARIA")
 public class Pizzaria {
@@ -23,7 +22,7 @@ public class Pizzaria {
     @Column(name = "ID_PIZZARIA")
     private Long id;
 
-    @Column(name = "NM_PIZZARIA")
+    @Column(name = "NM_PIZZARIA", unique = true)
     private String nome;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})

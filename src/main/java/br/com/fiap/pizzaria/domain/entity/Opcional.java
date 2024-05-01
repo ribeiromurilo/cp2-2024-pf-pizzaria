@@ -23,7 +23,7 @@ public class Opcional {
     @Column(name = "ID_OPCIONAL")
     private Long id;
 
-    @Column(name = "NM_OPCIONAL")
+    @Column(name = "NM_OPCIONAL", unique = true)
     private String nome;
 
     @Column(name = "PRECO_OPCIONAL")

@@ -14,9 +14,16 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
-@Table(name = "TB_PRODUTO")
+@Table(
+    name = "TB_PRODUTO",
+    uniqueConstraints = {
+        @UniqueConstraint(
+            name = "UK_PRODUTO_SABOR",
+            columnNames = {"NM_PRODUTO", "ID_SABOR"}
+        )
+    }
+)
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_PRODUTO")
