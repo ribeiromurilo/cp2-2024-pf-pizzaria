@@ -10,4 +10,5 @@ public record OpcionalResponse(
         String nome,
         BigDecimal preco,
         SaborResponse sabor
-) {}
+) {
+}
