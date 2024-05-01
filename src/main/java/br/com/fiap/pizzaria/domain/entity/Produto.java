@@ -29,10 +29,10 @@ public class Produto {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(
-            name = "SABOR_PRODUTO",
+            name = "ID_SABOR",
             referencedColumnName = "ID_SABOR",
             foreignKey = @ForeignKey(
-                    name = "FK_SABOR_PRODUTO"
+                    name = "FK_PRODUTO_SABOR"
             )
     )
     private Sabor sabor;
@@ -45,7 +45,7 @@ public class Produto {
             name = "TB_PRODUTO_OPCIONAIS",
             joinColumns = {
                 @JoinColumn(
-                        name = "PRODUTO",
+                        name = "ID_PRODUTO",
                         referencedColumnName = "ID_PRODUTO",
                         foreignKey = @ForeignKey(
                                 name = "FK_PRODUTO_OPCIONAIS"
@@ -54,7 +54,7 @@ public class Produto {
             },
             inverseJoinColumns = {
                     @JoinColumn(
-                            name = "OPCIONAIS",
+                            name = "ID_OPCIONAL",
                             referencedColumnName = "ID_OPCIONAL",
                             foreignKey = @ForeignKey(
                                     name = "FK_OPCIONAIS_PRODUTO"
