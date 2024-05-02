@@ -11,44 +11,45 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.Collection;
+import java.util.Objects;
 
 @RestController
-@RequestMapping(value = "/sabor")
-public class SaborResource implements ResourceDTO<SaborRequest, SaborResponse> {
+@RequestMapping(value = "/sabores")
+public class SaborResource {
 
     @Autowired
-    private SaborService service;
+    private SaborService saborService;
 
-    @Override
     @GetMapping
-    public ResponseEntity<Collection<SaborResponse>> findAll() {
-        var encontrados = service.findAll();
-        var resposta = encontrados.stream().map(service::toResponse).toList();
+    public ResponseEntity<Collection<SaborResponse>> findAll(
+            @RequestParam(name = "nome", required = false) String nome,
+            @RequestParam(name = "descricao", required = false) String descricao
+    ) {
+        var encontrados = saborService.findAll();
+        var resposta = encontrados.stream().map(saborService::toResponse).toList();
         return ResponseEntity.ok(resposta);
     }
 
-    @Override
     @GetMapping(value = "/{id}")
     public ResponseEntity<SaborResponse> findById(@PathVariable Long id) {
-        var encontrado = service.findById(id);
-        var resposta = service.toResponse(encontrado);
+        var encontrado = saborService.findById(id);
+        if (Objects.isNull(encontrado))
+            return ResponseEntity.notFound().build();
+        var resposta = saborService.toResponse(encontrado);
         return ResponseEntity.ok(resposta);
     }
 
-    @Override
     @Transactional
     @PostMapping
-    public ResponseEntity<SaborResponse> save(@RequestBody @Valid SaborRequest r) {
-        var entity = service.toEntity(r);
-        var saved = service.save(entity);
-        var resposta = service.toResponse(saved);
-
+    public ResponseEntity<SaborResponse> save(@RequestBody @Valid SaborRequest saborRequest) {
+        var entity = saborService.toEntity(saborRequest);
+        var saved = saborService.save(entity);
+        var resposta = saborService.toResponse(saved);
         var uri = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
                 .path("/{id}")
                 .buildAndExpand(saved.getId())
                 .toUri();
-
         return ResponseEntity.created(uri).body(resposta);
     }
 }
