@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/produtos")
@@ -21,7 +22,16 @@ public class ProdutoResource implements ResourceDTO<ProdutoRequest, ProdutoRespo
     @GetMapping
     @Override
     public ResponseEntity<Collection<ProdutoResponse>> findAll() {
-        return null;
+        var produtos = service.findAll();
+
+        if (produtos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            var response = produtos.stream()
+                    .map(service::toResponse)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(response);
+        }
     }
 
     @GetMapping(value = "/{id}")
